@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Happy 23rd Birthday</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Georgia', serif;
+}
+body{
+    background:linear-gradient(180deg,#fdfcfb,#f6f3ef);
+    color:#3e3e3e;
+    overflow-x:hidden;
+}
+section{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    text-align:center;
+    padding:40px;
+    opacity:0;
+    transform:translateY(30px);
+    transition:1s ease;
+}
+section.active{
+    opacity:1;
+    transform:translateY(0);
+}
+h1{font-size:38px;margin-bottom:15px;}
+h2{font-size:26px;margin-bottom:10px;}
+p{
+    font-size:18px;
+    max-width:700px;
+    line-height:1.8;
+}
+button{
+    margin-top:25px;
+    padding:12px 32px;
+    border:none;
+    background:#b89b5e;
+    color:white;
+    font-size:16px;
+    border-radius:30px;
+    cursor:pointer;
+}
+button:hover{background:#a0844f;}
+img{
+    width:100%;
+    max-width:280px;   
+    height:auto;
+    border-radius:20px;
+    box-shadow:0 15px 30px rgba(0,0,0,0.25);
+    margin:15px 0;
+}
+@media (min-width:480px){
+    img{ max-width:320px; }
+}
+@media (min-width:768px){
+    img{ max-width:420px; }
+}
+@media (min-width:1024px){
+    img{ max-width:480px; }
+}
+
+.audio-note{
+    position:fixed;
+    bottom:15px;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:12px;
+    opacity:0.6;
+    text-align:center;
+    max-width:90%;
+    pointer-events:none;
+}
+
+/* CONFETTI */
+.confetti{
+    position:fixed;
+    width:10px;
+    height:10px;
+    top:-10px;
+    animation:fall linear infinite;
+    opacity:.8;
+}
+@keyframes fall{
+    to{transform:translateY(110vh) rotate(360deg);}
+}
+
+/* HADIAH */
+@keyframes fadeIn{
+    from{opacity:0;transform:scale(0.9);}
+    to{opacity:1;transform:scale(1);}
+}
+</style>
+</head>
+
+<body>
+
+<!-- AUDIO -->
+<audio id="bgm" loop></audio>
+
+<!-- OPENING -->
+<section class="active" id="section1">
+    <h1>HAPPY BIRTHDAY</h1>
+    <h2>ANIS SAFITRI</h2>
+    <button onclick="nextSection()">OPEN ˗ˏˋ ♡ ˎˊ˗</button>
+    <p class="audio-note">
+        *pls turn on audio, gw pke lgu ini biar ky ngrayain di arasso
+    </p>
+</section>
+
+<section id="section2">
+    <h2>Hi Anis!</h2>
+    <img src="image/evolusi2.png">
+    <p>
+        slamat km udah difase <br>
+        ⸜(｡˃ ᵕ ˂ )⸝♡ manusia modern ⸜(｡˃ ᵕ ˂ )⸝♡<br>
+        trimaksih dh bertahan, tumbuh n be yourself sampai hari ini <br>
+        im proud of your growth, bnr.
+    </p>
+    <button onclick="nextSection()">Lanjut</button>
+</section>
+
+<!-- SURPRISE -->
+<section id="section3">
+    <h2>Special For You</h2>
+    <button onclick="openGift()">Klik</button>
+
+    <img id="giftImage" src="image/hadiah.jpg"
+         style="display:none;animation:fadeIn 1.5s ease;">
+
+    <p id="giftText"></p>
+
+    <button onclick="nextSection()">Penutup</button>
+</section>
+
+<!-- CLOSING -->
+<section id="section4">
+    <h1>Happy 23rd Birthday Nisa</h1>
+    <img src="image/anis.jpeg">
+    <p>
+        Sblmnya ak minta mff telat ngsih kadony,
+        sbnrnya kdony udh disiapin dr sblm ultah tp ak bru niat bka laptopny (jjur mff)
+        <br><br>
+        Intinya hbd nisa, smoga diumur skrng & selanjutnya
+        km selalu dikasih kebahagiaan, kshatan, kbrlimphaan rzki
+        n kebaikan dr org-org di sekitarmu.
+        <br><br>
+        pls ttp survive appun nanti yg ada didepan sana,
+        smg km ttp jd org baik & gk lupain gw kl ada apa-apa 😤
+        <br><br>
+        lopyu:* (socantik)
+    </p>
+     <button onclick="goToFirst()">Kembali ke Awal</button>
+</section>
+
+<script>
+let current = 1;
+let musicStarted = false;
+const bgm = document.getElementById("bgm");
+
+/* ===== MUSIK (1 LAGU SAJA) ===== */
+function playMusic(){
+    bgm.src = "music/opening.mpeg"; // SATU LAGU
+    bgm.volume = 0;
+    bgm.play();
+    fadeIn();
+}
+
+function fadeIn(){
+    let v = 0;
+    const f = setInterval(()=>{
+        if(v < 0.6){
+            v += 0.02;
+            bgm.volume = v;
+        } else clearInterval(f);
+    },150);
+}
+/* ============================== */
+
+function nextSection(){
+    if(!musicStarted){
+        playMusic();
+        musicStarted = true;
+    }
+
+    document.getElementById("section"+current).classList.remove("active");
+    current++;
+    document.getElementById("section"+current).classList.add("active");
+
+    window.scrollTo({
+        top: document.getElementById("section"+current).offsetTop,
+        behavior:"smooth"
+    });
+
+    if(current === 3){
+        createConfetti();
+    }
+}
+
+function openGift(){
+    document.getElementById("giftImage").style.display = "block";
+    document.getElementById("giftText").innerText =
+        "Surprise AWOAKWOKAOW, thanks to me bwt palisadeny";
+    createConfetti();
+}
+
+function createConfetti(){
+    for(let i=0;i<40;i++){
+        let c = document.createElement("div");
+        c.className = "confetti";
+        c.style.left = Math.random()*100+"vw";
+        c.style.animationDuration = (Math.random()*3+2)+"s";
+        c.style.backgroundColor =
+            ["#b89b5e","#f2d184","#e8c97a"][Math.floor(Math.random()*3)];
+        document.body.appendChild(c);
+        setTimeout(()=>c.remove(),5000);
+    }
+}
+function goToFirst(){
+    document.getElementById("section"+current).classList.remove("active");
+    current = 1;
+    document.getElementById("section1").classList.add("active");
+}
+</script>
+
+</body>
+</html>
