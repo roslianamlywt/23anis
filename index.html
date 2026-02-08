@@ -10,7 +10,7 @@
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:'Georgia', serif;
+    font-family: Georgia, "Times New Roman", serif;
 }
 body{
     background:linear-gradient(180deg,#fdfcfb,#f6f3ef);
@@ -33,13 +33,16 @@ section.active{
     opacity:1;
     transform:translateY(0);
 }
+
 h1{font-size:38px;margin-bottom:15px;}
 h2{font-size:26px;margin-bottom:10px;}
+
 p{
     font-size:18px;
     max-width:700px;
     line-height:1.8;
 }
+
 button{
     margin-top:25px;
     padding:12px 32px;
@@ -51,33 +54,29 @@ button{
     cursor:pointer;
 }
 button:hover{background:#a0844f;}
+
+/* ===== RESPONSIVE IMAGE ===== */
 img{
     width:100%;
-    max-width:280px;   
+    max-width:280px;
     height:auto;
     border-radius:20px;
     box-shadow:0 15px 30px rgba(0,0,0,0.25);
     margin:15px 0;
 }
-@media (min-width:480px){
-    img{ max-width:320px; }
-}
-@media (min-width:768px){
-    img{ max-width:420px; }
-}
-@media (min-width:1024px){
-    img{ max-width:480px; }
-}
+@media (min-width:480px){ img{ max-width:320px; } }
+@media (min-width:768px){ img{ max-width:420px; } }
+@media (min-width:1024px){ img{ max-width:480px; } }
+
+/* KHUSUS FOTO CLOSING */
 #section4 img{
-    max-width:220px;   /* lebih kecil & manis */
+    max-width:220px;
 }
-
 @media (min-width:768px){
-    #section4 img{
-        max-width:280px;
-    }
+    #section4 img{ max-width:280px; }
 }
 
+/* AUDIO NOTE */
 .audio-note{
     position:fixed;
     bottom:95px;
@@ -103,10 +102,23 @@ img{
     to{transform:translateY(110vh) rotate(360deg);}
 }
 
-/* HADIAH */
+/* FADE IMAGE */
 @keyframes fadeIn{
     from{opacity:0;transform:scale(0.9);}
     to{opacity:1;transform:scale(1);}
+}
+
+/* ===== TYPOGRAPHY FIX FOR MOBILE ===== */
+@media (max-width:480px){
+    p{
+        font-size:16px;
+        line-height:1.45;
+    }
+    h1{ font-size:28px; }
+    h2{ font-size:20px; }
+}
+p br{
+    line-height:1.2;
 }
 </style>
 </head>
@@ -126,6 +138,7 @@ img{
     </p>
 </section>
 
+<!-- SECTION 2 -->
 <section id="section2">
     <h2>Hi Anis!</h2>
     <img src="image/evolusi2.png">
@@ -138,7 +151,7 @@ img{
     <button onclick="nextSection()">Lanjut</button>
 </section>
 
-<!-- SURPRISE -->
+<!-- SECTION 3 -->
 <section id="section3">
     <h2>Special For You</h2>
     <button onclick="openGift()">Klik</button>
@@ -157,7 +170,7 @@ img{
     <img src="image/anis.jpeg">
     <p>
         Sblmnya ak minta mff telat ngsih kadony,
-        sbnrnya kdony udh disiapin dr sblm ultah tp ak bru niat bka laptopny (jjur mff)
+        sbnrnya kdony udh disiapin dr sblm ultah tp ak bru niat bka laptopny (mrs ggl jd shbat)
         <br><br>
         Intinya hbd nisa, smoga diumur skrng & selanjutnya
         km selalu dikasih kebahagiaan, kshatan, kbrlimphaan rzki
@@ -168,7 +181,7 @@ img{
         <br><br>
         lopyu:* (socantik)
     </p>
-     <button onclick="goToFirst()">Kembali ke Awal</button>
+    <button onclick="goToFirst()">Kembali ke Awal</button>
 </section>
 
 <script>
@@ -178,7 +191,7 @@ const bgm = document.getElementById("bgm");
 
 /* ===== MUSIK (1 LAGU SAJA) ===== */
 function playMusic(){
-    bgm.src = "music/opening.mpeg"; // SATU LAGU
+    bgm.src = "music/opening.mpeg";
     bgm.volume = 0;
     bgm.play();
     fadeIn();
@@ -193,14 +206,12 @@ function fadeIn(){
         } else clearInterval(f);
     },150);
 }
-/* ============================== */
 
 function nextSection(){
     if(!musicStarted){
         playMusic();
         musicStarted = true;
     }
-
     document.getElementById("section"+current).classList.remove("active");
     current++;
     document.getElementById("section"+current).classList.add("active");
@@ -234,6 +245,7 @@ function createConfetti(){
         setTimeout(()=>c.remove(),5000);
     }
 }
+
 function goToFirst(){
     document.getElementById("section"+current).classList.remove("active");
     current = 1;
